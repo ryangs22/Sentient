@@ -19,6 +19,8 @@
 ![Stack](https://img.shields.io/badge/Backend-Supabase-3ECF8E?style=for-the-badge&logo=supabase)
 ![Stack](https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma)
 ![Stack](https://img.shields.io/badge/IA-Gemini-8E75B2?style=for-the-badge&logo=googlegemini)
+![Stack](https://img.shields.io/badge/Banco_de_Dados-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql)
+
 
 <br/>
 
