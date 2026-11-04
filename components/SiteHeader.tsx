@@ -11,7 +11,7 @@ const SiteHeader = () => {
 
   return <header className="fixed inset-x-0 top-0 z-20 flex h-18 items-center justify-between border-b border-white/6 bg-background/70 px-6 backdrop-blur-md md:px-10">
       <Link href={isSignedIn && !isLandingPage ? "/dashboard" : "/"} className="flex items-center">
-        <Image src="/brand/sentient-logo-navbar-dark.png" alt="Sentient" width={314} height={160} className="h-12 w-auto" priority />
+        <Image src="/brand/sentient-logo-navbar-white.png" alt="Sentient" width={314} height={160} className="h-12 w-auto" priority />
       </Link>
 
         {isLandingPage && (
