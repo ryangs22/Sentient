@@ -1,26 +1,191 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Vincula o font-sans do Tailwind à variável Geist injetada pelo next/font */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* O sistema é exclusivo para modo escuro, portanto :root e .dark compartilham a mesma paleta */
+:root,
+.dark {
+  --background: rgba(9, 9, 11, 1);
+  --foreground: rgba(240, 246, 252, 1);
+  --card: rgba(18, 18, 22, 1);
+  --card-foreground: rgba(240, 246, 252, 1);
+  --popover: rgba(18, 18, 22, 1);
+  --popover-foreground: rgba(240, 246, 252, 1);
+  
+  /* Cor primária e destaques em tom de azul */
+  --primary: rgba(59, 130, 246, 1);
+  --primary-foreground: rgba(15, 23, 42, 1);
+  --secondary: rgba(27, 27, 34, 1);
+  --secondary-foreground: rgba(240, 246, 252, 1);
+  --muted: rgba(27, 27, 34, 1);
+  --muted-foreground: rgba(161, 161, 170, 1);
+  --accent: rgba(30, 58, 138, 1);
+  --accent-foreground: rgba(224, 242, 254, 1);
+  --destructive: rgba(239, 68, 68, 1);
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: rgba(59, 130, 246, 0.5);
+  --chart-1: rgba(59, 130, 246, 1);
+  --chart-2: rgba(14, 165, 233, 1);
+  --chart-3: rgba(99, 102, 241, 1);
+  --chart-4: rgba(30, 58, 138, 1);
+  --chart-5: rgba(2, 132, 199, 1);
+  --radius: 0.625rem;
+  --sidebar: rgba(14, 14, 18, 1);
+  --sidebar-foreground: rgba(240, 246, 252, 1);
+  --sidebar-primary: rgba(59, 130, 246, 1);
+  --sidebar-primary-foreground: rgba(15, 23, 42, 1);
+  --sidebar-accent: rgba(27, 27, 34, 1);
+  --sidebar-accent-foreground: rgba(240, 246, 252, 1);
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: rgba(59, 130, 246, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground relative;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+  }
+
+  /* Os títulos do documento pertencem ao próprio documento, mantendo a fonte nativa do editor. */
+  .bn-container :is(h1, h2, h3) {
+    font-family: inherit;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Contornos topográficos (public/textures/topo.svg): Identidade visual de fundo, uma alusão ao
+   mapeamento de territórios desconhecidos. Opcional por seção, nunca sobre os editores de documento ou canvas.
+   O SVG é usado como máscara sobre um gradiente de cor, para que as linhas brilhem em tom azul no centro e esfriem para cinza
+   nas bordas; uma segunda camada de máscara suaviza todo o mapa gradualmente. */
+@utility topo-bg {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(ellipse 40% 50% at 50% 42%,
+        rgba(59, 130, 246, 1),
+        rgba(37, 99, 235, 0.55) 45%,
+        rgba(255, 255, 255, 0.45) 75%);
+    mask-image:
+      url("/textures/topo.svg"),
+      radial-gradient(ellipse 75% 70% at 50% 45%, black 30%, transparent 85%);
+    mask-size: cover, 100% 100%;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+    opacity: 0.55;
+  }
+}
+
+/* Marcas de registro: pequenos traços azuis nos cantos externamente ao elemento, como marcas de corte em um
+   mapa impresso. Aplique em um elemento wrapper, pois elementos com overflow-hidden iriam cortá-los. */
+@utility survey-frame {
+  position: relative;
+
+  &::after {
+    --mark: rgba(59, 130, 246, 0.7);
+    --size: 14px;
+    content: "";
+    position: absolute;
+    inset: -8px;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--mark), var(--mark)) top left / var(--size) 1px,
+      linear-gradient(var(--mark), var(--mark)) top left / 1px var(--size),
+      linear-gradient(var(--mark), var(--mark)) top right / var(--size) 1px,
+      linear-gradient(var(--mark), var(--mark)) top right / 1px var(--size),
+      linear-gradient(var(--mark), var(--mark)) bottom left / var(--size) 1px,
+      linear-gradient(var(--mark), var(--mark)) bottom left / 1px var(--size),
+      linear-gradient(var(--mark), var(--mark)) bottom right / var(--size) 1px,
+      linear-gradient(var(--mark), var(--mark)) bottom right / 1px var(--size);
+    background-repeat: no-repeat;
+  }
+}
+
+/* Inclinação vinculada à rolagem: começa inclinada para trás no topo, deslocada para cima para fechar o espaço que a inclinação
+   abre acima dela, e se estabiliza plana em sua posição normal ao longo dos primeiros 500px de rolagem. CSS puro (scroll-driven animations); navegadores sem suporte e quem
+   prefere movimento reduzido verão o elemento plano. */
+@keyframes scroll-tilt {
+  from {
+    transform: perspective(1400px) translateY(-70px) rotateX(22deg) scale(0.96);
+  }
+
+  to {
+    transform: perspective(1400px) translateY(0) rotateX(0deg) scale(1);
+  }
+}
+
+@utility scroll-tilt {
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: scroll-tilt linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 500px;
+    }
+  }
 }
