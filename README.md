@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+<br/>
 
-First, run the development server:
+# 🧠 SENTIENT 🧠
+### *Um espaço para tudo o que você está construindo*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **SENTIENT** é uma plataforma SaaS Full Stack que une inteligência artificial e colaboração em um único workspace. Em vez de alternar entre um editor de documentos, uma ferramenta de diagramas e um chat com IA, você trabalha em um só lugar, onde um agente inteligente escreve e desenha ao seu lado, ao vivo. Descreva o que precisa, como mapear a arquitetura de um produto e depois redigir a especificação, e o agente executa direto no espaço de trabalho: cria formas e conexões no canvas interativo, escreve e estrutura documentos e acompanha cada alteração em tempo real, junto com o resto da equipe. Construído com **Next.js, React e TypeScript**, o projeto usa **Supabase** para autenticação e sincronização em tempo real, **Prisma** para persistência de dados, **tldraw** para o canvas colaborativo e **Gemini com Vercel AI SDK** para agentes que não apenas conversam, mas agem sobre o workspace. Tudo isso com sistema de contas, planos e billing, como um produto SaaS completo.
+>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br/>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![Stack](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react)
+![Stack](https://img.shields.io/badge/Framework-Next.js-000000?style=for-the-badge&logo=nextdotjs)
+![Stack](https://img.shields.io/badge/Linguagem-TypeScript-3178C6?style=for-the-badge&logo=typescript)
+![Stack](https://img.shields.io/badge/Estilo-Tailwind_CSS-38BDF8?style=for-the-badge&logo=tailwindcss)
+![Stack](https://img.shields.io/badge/Backend-Supabase-3ECF8E?style=for-the-badge&logo=supabase)
+![Stack](https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma)
+![Stack](https://img.shields.io/badge/IA-Gemini-8E75B2?style=for-the-badge&logo=googlegemini)
+![Stack](https://img.shields.io/badge/Banco_de_Dados-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+<br/>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+</div>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<div align="center">
 
-## Deploy on Vercel
+## 🛠️ Stack Tecnológica
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Camada | Tecnologia |
+| :--- | :--- |
+| **Linguagens** | TypeScript, JavaScript, SQL |
+| **Frontend** | React + Next.js 16 + Tailwind CSS |
+| **Componentes de UI** | Shadcn UI |
+| **Canvas Interativo** | tldraw |
+| **Backend / Realtime** | Supabase (Realtime, Auth, Storage) |
+| **ORM / Banco de Dados** | Prisma + PostgreSQL |
+| **Inteligência Artificial** | Google Gemini + Vercel AI SDK |
+| **Autenticação** | Supabase Auth |
+| **Docs** | BlockNote e Yjs |
+| **Billing** | Sistema de planos e assinaturas |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<br> 
+© 2026 SENTIENT — Um espaço para tudo o que você está construindo
+
+</div>
