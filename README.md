@@ -19,7 +19,6 @@
 ![Stack](https://img.shields.io/badge/Backend-Supabase-3ECF8E?style=for-the-badge&logo=supabase)
 ![Stack](https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma)
 ![Stack](https://img.shields.io/badge/IA-Gemini-8E75B2?style=for-the-badge&logo=googlegemini)
-![Stack](https://img.shields.io/badge/Banco_de_Dados-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql)
 
 
 <br/>
@@ -37,9 +36,9 @@
 | **Componentes de UI** | Shadcn UI |
 | **Canvas Interativo** | tldraw |
 | **Backend / Realtime** | Supabase (Realtime, Auth, Storage) |
-| **ORM / Banco de Dados** | Prisma + PostgreSQL |
+| **ORM** | Prisma |
 | **Inteligência Artificial** | Google Gemini + Vercel AI SDK |
-| **Autenticação** | Supabase Auth |
+| **Autenticação** | Supabase Auth + Clerk |
 | **Docs** | BlockNote e Yjs |
 | **Billing** | Sistema de planos e assinaturas |
 
