@@ -41,8 +41,19 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/lib/generated/prisma
 .clerk/
 
 # supabase cli local state
 supabase/.temp/
+/lib/generated/prisma
+
+# Prisma & SQLite (bancos locais temporários)
+*.db
+*.db-journal
+prisma/*.db
+
+# Pastas de skills/agentes geradas automaticamente na inicialização
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
