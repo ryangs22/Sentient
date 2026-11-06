@@ -5,6 +5,9 @@ import { TooltipContent } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AppShell from "@/components/AppShell";
+import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+import { dark } from "@clerk/ui/themes";
+import { ptBR } from "@clerk/localizations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,15 +32,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {  
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <TooltipProvider>
-          <AppShell>
-            {children}
-          </AppShell>
-        </TooltipProvider>
-        <Toaster richColors />
-      </body>
-    </html>
+    <ClerkProvider 
+      localization={ptBR}
+      appearance={{
+        theme: dark,
+        variables: { colorPrimary: "rgba(59, 130, 246, 1)" },
+      }}
+    >
+      <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}>
+        <body className="min-h-full flex flex-col">
+          <TooltipProvider>
+            <AppShell>
+              {children}
+            </AppShell>
+          </TooltipProvider>
+          <Toaster richColors />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
