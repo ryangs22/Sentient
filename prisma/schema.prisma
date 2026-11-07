@@ -11,3 +11,107 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum WorkspaceStatus {
+  PLANNING
+  IN_PROGRESS
+  IN_REVIEW
+  DONE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+// Workspaces criados por este usuário — as associações e permissões
+// de todos os workspaces são gerenciadas pelas Clerk Organizations,
+// não por esta tabela. Portanto, ela serve apenas para identificar
+// quem deve ser responsabilizado/cobrado, e não como fonte oficial
+// de controle de acesso
+  createdWorkspaces Workspace[]
+  agentPrompts      AgentPrompt[]
+}
+
+model Workspace {
+  id          String          @id @default(cuid())
+  name        String
+  description String?
+  creatorId   String
+  // ID da Clerk Organization — fonte oficial das associações e permissões
+  // (org:admin, org:member, org:viewer). Uma organização pode possuir
+  // vários workspaces (não é único); é opcional porque o workspace pessoal
+  // de um usuário individual não possui uma organização vinculada a ele,
+  // no modo em que a associação à organização é opcional.
+  clerkOrgId  String?
+  // Coluna do Kanban no dashboard + ordem dentro dela. position é um Float
+  // para que um cartão movido possa assumir o ponto médio entre seus vizinhos —
+  // somente o cartão que foi movido precisa ser atualizado.
+  status      WorkspaceStatus @default(PLANNING)
+  position    Float           @default(0)
+  // Token de acesso para link público somente de leitura; null significa
+  // que o compartilhamento está desativado. Redefinir esse token invalida
+  // os links antigos.
+  shareToken  String?         @unique
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  creator     User            @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  // Todo workspace possui sempre exatamente um documento (doc) + um canvas,
+  // vinculados entre si — não se trata de uma lista genérica de elementos.
+  // Ambos são criados juntamente com o próprio workspace.
+  doc          Doc?
+  canvas       Canvas?
+  agentPrompts AgentPrompt[]
+
+  @@index([creatorId])
+  @@index([clerkOrgId])
+}
+
+model Doc {
+  id          String    @id @default(cuid())
+  workspaceId String    @unique
+  // JSON dos blocos do BlockNote — uma cópia legível utilizada por
+  // funcionalidades do servidor (agente, visualização compartilhada).
+  content     Json?
+  // Estado do documento Yjs — a fonte oficial dos dados da
+  // colaboração em tempo real.
+  yjsState    Bytes?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Canvas {
+  id          String    @id @default(cuid())
+  workspaceId String    @unique
+  // Snapshot das formas (shapes) e do estado (store) do tldraw.
+  content     Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+// Uma linha para cada prompt enviado pelo usuário ao agente,
+// contabilizada por proprietário a cada mês para controle dos limites de uso.
+model AgentPrompt {
+  id          String     @id @default(cuid())
+  // Identifica a quem o prompt será contabilizado: ao ID da Clerk Organization
+  // do workspace ou ao ID do usuário na Clerk, caso seja um workspace pessoal.
+  // A Clerk utiliza prefixos nos IDs ("org_", "user_"), portanto,
+  // os dois nunca entram em conflito.
+  ownerId     String
+  userId      String
+  workspaceId String?
+  createdAt   DateTime   @default(now())
+
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+
+  @@index([ownerId, createdAt])
+}
