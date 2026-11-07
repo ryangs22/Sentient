@@ -20,7 +20,6 @@
 ![Stack](https://img.shields.io/badge/ORM-Prisma-2D3748?style=for-the-badge&logo=prisma)
 ![Stack](https://img.shields.io/badge/IA-Gemini-8E75B2?style=for-the-badge&logo=googlegemini)
 
-
 <br/>
 
 </div>
@@ -42,7 +41,81 @@
 | **Docs** | BlockNote e Yjs |
 | **Billing** | Sistema de planos e assinaturas |
 
-<br> 
-© 2026 SENTIENT — Um espaço para tudo o que você está construindo
+<br>
+</div>
+
+---
+
+<div align="center"> 
+  
+## 📦 Instalação e Execução
 
 </div>
+
+### Pré-requisitos
+Antes de começar, certifique-se de ter instalado em sua máquina:
+* **Node.js** (versão recomendada: `v26.13.0` ou superior)
+* **Git**
+* Uma conta no **Supabase** (para o banco de dados PostgreSQL)
+* Uma conta no **Clerk** (para o sistema de autenticação)
+
+---
+
+### 1. Clonar o Repositório e Instalar Dependências
+Baixe o código-fonte para a sua máquina e instale os pacotes necessários definidos no `package.json`.
+
+```bash
+# Clone o repositório
+git clone [https://github.com/ryangs22/Sentient.git](https://github.com/ryangs22/Sentient.git)
+
+# Entre na pasta do projeto
+cd Sentient
+
+# Instale as dependências
+npm install
+```
+
+### 2. Configurar Variáveis de Ambiente
+O projeto precisa se comunicar com serviços externos (Clerk e Supabase). Crie o arquivo de configuração local copiando o template:
+
+```bash
+cp .env.example .env
+```
+
+Abra o arquivo `.env` gerado na raiz do projeto e preencha as variáveis com as chaves dos seus respectivos painéis:
+
+```env
+# SUPABASE (Banco de Dados PostgreSQL)
+# Pegue essas URLs nas configurações de Database do Supabase
+DATABASE_URL="postgresql://postgres.[SEU_PROJETO]:[SUA_SENHA]@[aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true](https://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true)"
+DIRECT_URL="postgresql://postgres.[SEU_PROJETO]:[SUA_SENHA]@[aws-0-sa-east-1.pooler.supabase.com:5432/postgres](https://aws-0-sa-east-1.pooler.supabase.com:5432/postgres)"
+
+```
+
+### 3. Configurar o Banco de Dados (Prisma)
+Com o `.env` configurado, você precisa criar as tabelas no Supabase e gerar o cliente tipado do Prisma para o TypeScript reconhecer os models (como `User`, `Workspace`, etc.).
+
+```bash
+# Executa a migração criando as tabelas reais no Supabase com base no schema.prisma
+npx prisma migrate dev --name init
+
+# (Opcional) Caso precise apenas gerar/atualizar a tipagem do cliente Prisma
+npx prisma generate
+```
+
+### 4. Executar a Aplicação
+Com os pacotes instalados, chaves configuradas e banco de dados pronto, inicie o servidor de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação rodando.
+
+<br>
+
+---
+
+<p align="center">
+  © 2026 SENTIENT — Um espaço para tudo o que você está construindo
+</p>
