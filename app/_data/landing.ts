@@ -1,43 +1,43 @@
 import { LayoutGrid, FileText, KanbanSquare } from "lucide-react";
 import { CanvasMock, DocsMock, BoardMock } from "../_components/SurfaceVisuals";
 
-// Static copy for the landing page, kept out of the markup so it's easy to edit.
+// Textos estáticos da landing page, mantidos fora da marcação para facilitar a edição.
 
 export const AUDIENCES = [
-  "Product teams",
-  "Founders",
-  "Solo builders",
-  "Agencies",
-  "Consultants",
+  "Times de produto",
+  "Fundadores",
+  "Criadores solo",
+  "Agências",
+  "Consultores",
 ];
 
 export const STEPS = [
   {
-    title: "Describe what you're building",
-    body: "Type or speak a prompt, like \"a database schema for a booking app, documented\". A new workspace opens with the agent already on it.",
+    title: "Descreva o que você está construindo",
+    body: "Digite ou fale um prompt, como \"um schema de banco de dados para um app de reservas, documentado\". Um novo workspace abre com o agente já trabalhando nele.",
   },
   {
-    title: "Watch the agent work",
-    body: "It draws shape by shape on the canvas and writes the spec in the doc, in real time. You see every step, not just the final result.",
+    title: "Acompanhe o agente trabalhando",
+    body: "Ele desenha forma por forma no canvas e escreve a especificação no doc, em tempo real. Você vê cada etapa, não só o resultado final.",
   },
   {
-    title: "Refine it together",
-    body: "Edit anything by hand, ask for follow-ups, and invite your team. Everyone works on the same canvas and doc, live.",
+    title: "Refinem juntos",
+    body: "Edite qualquer coisa à mão, peça ajustes e convide sua equipe. Todos trabalham no mesmo canvas e doc, ao vivo.",
   },
 ];
 
-// One row per surface: icon, title, description, 3 bullets and a static mockup.
+// Uma linha por superfície: ícone, título, descrição, 3 bullets e um mockup estático.
 export const SURFACES = [
   {
     icon: LayoutGrid,
     visual: CanvasMock,
     title: "Canvas",
     description:
-      "An infinite whiteboard where the agent draws flowcharts, ERDs, architecture diagrams and org charts shape by shape, and edits them in place when you ask.",
+      "Um quadro branco infinito onde o agente desenha fluxogramas, ERDs, diagramas de arquitetura e organogramas forma por forma, e os edita no lugar quando você pede.",
     bullets: [
-      "Flowcharts, ERDs, architecture and org charts",
-      "Drawn shape by shape, live, not behind a black box",
-      "Ask for changes and it edits shapes in place",
+      "Fluxogramas, ERDs, arquitetura e organogramas",
+      "Desenhado forma por forma, ao vivo, sem caixa-preta",
+      "Peça mudanças e ele edita as formas no lugar",
     ],
   },
   {
@@ -45,23 +45,23 @@ export const SURFACES = [
     visual: DocsMock,
     title: "Docs",
     description:
-      "A block editor where the agent turns a diagram into a written spec, and rewrites or summarizes sections on command.",
+      "Um editor de blocos onde o agente transforma um diagrama em especificação escrita, e reescreve ou resume seções sob comando.",
     bullets: [
-      "Turn any diagram into a written spec",
-      "Rewrite or summarize a section on command",
-      "Block-based editing you already know",
+      "Transforme qualquer diagrama em uma especificação escrita",
+      "Reescreva ou resuma uma seção sob comando",
+      "Edição em blocos que você já conhece",
     ],
   },
   {
     icon: KanbanSquare,
     visual: BoardMock,
-    title: "Team board",
+    title: "Quadro da equipe",
     description:
-      "A kanban board of every workspace in your org, with live cursors so teammates can jump in together.",
+      "Um quadro kanban com todos os workspaces da sua organização, com cursores ao vivo para que colegas entrem juntos.",
     bullets: [
-      "Every workspace in your org, in one view",
-      "Live cursors show who is working where",
-      "Jump into a teammate's workspace together",
+      "Todos os workspaces da sua organização, em uma só visão",
+      "Cursores ao vivo mostram quem está trabalhando onde",
+      "Entre no workspace de um colega e trabalhem juntos",
     ],
   },
 ];

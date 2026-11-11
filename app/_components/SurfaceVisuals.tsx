@@ -1,5 +1,5 @@
-// Static mock UIs shown next to each surface on the landing page.
-// Pure markup (no hooks), so they work as Server Components.
+// Mockups estáticos exibidos ao lado de cada superfície na landing page.
+// Apenas marcação (sem hooks), então funcionam como Server Components.
 
 function Window({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +16,7 @@ function Window({ children }: { children: React.ReactNode }) {
   );
 }
 
-// A collaborator's cursor with a name pill.
+// Cursor de um colaborador, com uma etiqueta com o nome.
 function Cursor({ label, className }: { label: string; className: string }) {
   return (
     <div className={`absolute flex items-start ${className}`}>
@@ -33,7 +33,7 @@ function Cursor({ label, className }: { label: string; className: string }) {
   );
 }
 
-/* ───────────── Canvas: a small flowchart ───────────── */
+/* ───────────── Canvas: um pequeno fluxograma ───────────── */
 
 export function CanvasMock() {
   const box = "fill-white/5 stroke-white/25";
@@ -57,7 +57,7 @@ export function CanvasMock() {
             </marker>
           </defs>
 
-          {/* connections */}
+          {/* conexões */}
           <path
             d="M132 66 H210"
             strokeWidth="2"
@@ -71,36 +71,36 @@ export function CanvasMock() {
             markerEnd="url(#cm-arrow)"
           />
 
-          {/* boxes */}
+          {/* caixas */}
           <rect x="20" y="40" width="112" height="52" rx="9" strokeWidth="1.5" className={box} />
           <text x="76" y="71" textAnchor="middle" fontSize="13" fontWeight="500" className={text}>
-            User signs up
+            Novo cadastro
           </text>
 
           <rect x="210" y="40" width="160" height="52" rx="9" strokeWidth="1.5" className={box} />
           <text x="290" y="62" textAnchor="middle" fontSize="13" fontWeight="500" className={text}>
-            Send welcome
+            Enviar e-mail
           </text>
           <text x="290" y="79" textAnchor="middle" fontSize="13" fontWeight="500" className={text}>
-            email
+            de boas-vindas
           </text>
 
           <rect x="100" y="150" width="146" height="52" rx="9" strokeWidth="1.5" className={box} />
           <text x="173" y="172" textAnchor="middle" fontSize="13" fontWeight="500" className={text}>
-            Onboarding
+            Checklist de
           </text>
           <text x="173" y="189" textAnchor="middle" fontSize="13" fontWeight="500" className={text}>
-            checklist
+            onboarding
           </text>
         </svg>
 
-        <Cursor label="Agent" className="left-[58%] top-[74%]" />
+        <Cursor label="Agente" className="left-[58%] top-[74%]" />
       </div>
     </Window>
   );
 }
 
-/* ───────────── Docs: a spec with an agent summary ───────────── */
+/* ───────────── Docs: uma especificação com resumo do agente ───────────── */
 
 export function DocsMock() {
   return (
@@ -118,7 +118,7 @@ export function DocsMock() {
         <div className="rounded-xl border border-primary/40 bg-primary/10 p-4">
           <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
             <span className="size-1.5 rotate-45 bg-primary" />
-            Agent summary
+            Resumo do agente
           </div>
           <div className="space-y-2">
             <div className="h-2 w-full rounded bg-primary/50" />
@@ -135,12 +135,12 @@ export function DocsMock() {
   );
 }
 
-/* ───────────── Team board: kanban with live cursors ───────────── */
+/* ───────────── Quadro da equipe: kanban com cursores ao vivo ───────────── */
 
 const COLUMNS = [
-  { name: "Planning", cards: ["Onboarding flow", "Billing ERD"] },
-  { name: "In progress", cards: ["API architecture", "Launch spec", "Org chart"] },
-  { name: "Done", cards: ["Brand brief"] },
+  { name: "Planejamento", cards: ["Fluxo de onboarding", "ERD de cobrança"] },
+  { name: "Em andamento", cards: ["Arquitetura da API", "Spec de lançamento", "Organograma"] },
+  { name: "Concluído", cards: ["Brief da marca"] },
 ];
 
 export function BoardMock() {
@@ -164,7 +164,7 @@ export function BoardMock() {
           </div>
         ))}
 
-        <Cursor label="Maya" className="left-[30%] top-[52%]" />
+        <Cursor label="Sarah" className="left-[30%] top-[52%]" />
         <Cursor label="Dev" className="left-[58%] top-[80%]" />
       </div>
     </Window>

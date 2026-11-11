@@ -11,32 +11,32 @@ type PayerType = "user" | "organization";
 type Plan = NonNullable<ReturnType<typeof usePlans>["data"]>[number];
 
 const TABS: { value: PayerType; label: string }[] = [
-  { value: "user", label: "Personal" },
-  { value: "organization", label: "Team" },
+  { value: "user", label: "Pessoal" },
+  { value: "organization", label: "Equipe" },
 ];
 
-// Seat-based plans price per member; everything else is a flat monthly fee.
+// Planos por assento cobram por membro; todos os demais têm uma mensalidade fixa.
 function planPrice(plan: Plan) {
   const seatFee = plan.unitPrices?.find((u) => u.name === "seats")?.tiers[0]?.feePerBlock;
   if (seatFee && seatFee.amount > 0) {
-    return { amount: `${seatFee.currencySymbol}${seatFee.amountFormatted}`, unit: "per member / month" };
+    return { amount: `${seatFee.currencySymbol}${seatFee.amountFormatted}`, unit: "por membro / mês" };
   }
   if (plan.fee && plan.fee.amount > 0) {
-    return { amount: `${plan.fee.currencySymbol}${plan.fee.amountFormatted}`, unit: "per month" };
+    return { amount: `${plan.fee.currencySymbol}${plan.fee.amountFormatted}`, unit: "por mês" };
   }
-  return { amount: "$0", unit: "forever" };
+  return { amount: "$0", unit: "para sempre" };
 }
 
-// Free first, then paid plans from cheapest to most expensive.
+// Primeiro o plano gratuito, depois os pagos, do mais barato ao mais caro.
 function sortPlans(plans: Plan[]) {
   const cost = (plan: Plan) =>
     plan.isDefault ? -1 : (plan.unitPrices?.[0]?.tiers[0]?.feePerBlock.amount ?? plan.fee?.amount ?? 0);
   return [...plans].sort((a, b) => cost(a) - cost(b));
 }
 
-// Shared by the landing page and the upgrade dialog. Plans, prices and features
-// come from the Clerk dashboard. Paid cards open Clerk's checkout drawer; team plans charge the
-// active organization. `onCheckoutStart` lets a container (like a dialog) close before it opens.
+// Compartilhado entre a landing page e o diálogo de upgrade. Planos, preços e features
+// vêm do painel do Clerk. Os cards pagos abrem o checkout do Clerk; os planos de equipe
+// cobram a organização ativa. `onCheckoutStart` permite que um contêiner (como um diálogo) feche antes de abrir.
 export function PricingPlans({
   title,
   description,
@@ -48,7 +48,7 @@ export function PricingPlans({
 }) {
   const { isSignedIn, orgId } = useAuth();
   const [tab, setTab] = useState<PayerType | null>(null);
-  // Until the visitor picks a tab, show the plans for where they currently are.
+  // Até o visitante escolher uma aba, mostra os planos de acordo com onde ele está agora.
   const payerType = tab ?? (orgId ? "organization" : "user");
 
   const { data: plans, isLoading } = usePlans({ for: payerType, pageSize: 10 });
@@ -60,11 +60,11 @@ export function PricingPlans({
     subscription?.subscriptionItems.filter((item) => item.status === "active").map((item) => item.plan.id)
   );
   const sortedPlans = sortPlans(plans ?? []);
-  // Only the entry-level paid plan (Pro, or Team) is highlighted, not every paid tier.
+  // Apenas o plano pago de entrada (Pro ou Team) é destacado, não todos os planos pagos.
   const featuredPlanId = sortedPlans.find((plan) => !plan.isDefault)?.id;
 
   return (
-    // w-full: inside a grid (like the dialog), mx-auto alone would shrink this to fit its content.
+    // w-full: dentro de um grid (como no diálogo), só o mx-auto faria isto encolher até o tamanho do conteúdo.
     <div className="mx-auto w-full max-w-5xl">
       {title && (
         <div className="mb-8 text-center">
@@ -106,7 +106,7 @@ export function PricingPlans({
                       : "border-white/10 bg-white/2"
                   }`}
                 >
-                  {/* Sits centered on the card's top border. */}
+                  {/* Fica centralizado na borda superior do card. */}
                   {isFeatured && payerType === "organization" && (
                     <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground shadow-lg shadow-primary/20">
                       Popular
@@ -116,7 +116,7 @@ export function PricingPlans({
                     <h3 className="text-lg font-semibold">{plan.name}</h3>
                     {isCurrent && (
                       <span className="rounded-full border border-white/15 px-2.5 py-0.5 text-xs text-muted-foreground">
-                        Current plan
+                        Plano atual
                       </span>
                     )}
                   </div>
@@ -129,7 +129,7 @@ export function PricingPlans({
 
                   <ul className="mt-6 mb-8 flex-1 space-y-2.5">
                     {plan.features.length === 0 ? (
-                      <li className="text-sm text-muted-foreground">The core workspace: docs, canvas and the agent</li>
+                      <li className="text-sm text-muted-foreground">O workspace essencial: docs, canvas e o agente</li>
                     ) : (
                       plan.features.map((feature) => (
                         <li key={feature.id} className="flex items-start gap-2.5 text-sm">
@@ -175,7 +175,7 @@ function PlanAction({
   if (!isSignedIn) {
     return (
       <Button asChild size="lg" variant={isFeatured ? "default" : "outline"} className="w-full">
-        <Link href="/sign-up">{isPaid ? `Get ${plan.name}` : "Get started"}</Link>
+        <Link href="/sign-up">{isPaid ? `Assinar ${plan.name}` : "Começar"}</Link>
       </Button>
     );
   }
@@ -183,18 +183,18 @@ function PlanAction({
   if (isCurrent || !isPaid) {
     return (
       <Button size="lg" variant="outline" className="w-full" disabled>
-        {isCurrent ? "Current plan" : "Included"}
+        {isCurrent ? "Plano atual" : "Incluído"}
       </Button>
     );
   }
 
   if (payerType === "organization") {
     if (!orgId) {
-      return <Note>Select or create a team in the header to upgrade it.</Note>;
+      return <Note>Selecione ou crie uma equipe no cabeçalho para fazer o upgrade.</Note>;
     }
-    // Clerk only lets members with the billing permission (admins by default) manage the plan.
+    // O Clerk só permite que membros com a permissão de cobrança (administradores, por padrão) gerenciem o plano.
     if (!has?.({ permission: "org:sys_billing:manage" })) {
-      return <Note>Ask an admin of {organization?.name ?? "your team"} to upgrade.</Note>;
+      return <Note>Peça a um administrador de {organization?.name ?? "sua equipe"} para fazer o upgrade.</Note>;
     }
   }
 
@@ -202,13 +202,13 @@ function PlanAction({
     <div className="space-y-2">
       {payerType === "organization" && organization && (
         <p className="text-center text-xs text-muted-foreground">
-          Upgrading <span className="text-foreground">{organization.name}</span>
+          Fazendo upgrade de <span className="text-foreground">{organization.name}</span>
         </p>
       )}
-      {/* CheckoutButton runs this button's onClick first, then opens Clerk's checkout drawer. */}
+      {/* O CheckoutButton executa primeiro o onClick deste botão e depois abre o checkout do Clerk. */}
       <CheckoutButton planId={plan.id} planPeriod="month" for={payerType}>
         <Button size="lg" variant={isFeatured ? "default" : "outline"} className="w-full" onClick={onCheckoutStart}>
-          Upgrade to {plan.name}
+          Fazer upgrade para {plan.name}
         </Button>
       </CheckoutButton>
     </div>

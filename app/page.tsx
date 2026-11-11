@@ -9,35 +9,35 @@ import { AUDIENCES, STEPS, SURFACES } from "./_data/landing";
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      {/* Hero, over the topographic contours */}
+      {/* Hero, sobre as curvas de nível topográficas */}
       <section className="topo-bg px-6 pt-10 pb-24 md:px-10 md:pt-16">
         <MapAnnotations />
         <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <SectionLabel>Early access</SectionLabel>
+          <SectionLabel>SENTIENT</SectionLabel>
 
           <h1 className="mt-2 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
-            An <span className="text-primary">outpost</span> for whatever
-            you&apos;re building
+            Um espaço <span className="text-primary">senciente</span> para tudo que você constrói
           </h1>
 
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Chat with an AI agent that draws on your canvas and writes your
-            docs, while your whole team works alongside it in real time.
+            Converse com um agente de IA que desenha no seu canvas e escreve
+            seus docs, enquanto toda a sua equipe trabalha ao lado dele em
+            tempo real.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="gap-2 text-base">
               <Link href="/sign-up">
-                Start building free <ArrowRight className="size-4" />
+                Comece a criar de graça <ArrowRight className="size-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-base">
-              <Link href="#how-it-works">See how it works</Link>
+              <Link href="#how-it-works">Veja como funciona</Link>
             </Button>
           </div>
         </div>
 
-        {/* Product walkthrough: an animated mock built in code (see HeroDemo) */}
+        {/* Demonstração do produto: um mock animado feito em código (veja HeroDemo) */}
         <div className="survey-frame scroll-tilt mx-auto mt-16 max-w-5xl">
           <div className="relative aspect-16/9.25 overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl shadow-black/40">
             <HeroDemo />
@@ -45,11 +45,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Who it's for: short and factual since there are no customer logos yet */}
+      {/* Para quem é: curto e objetivo, já que ainda não há logos de clientes */}
       <section className="border-t border-white/10 px-6 py-8 md:px-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center gap-5 sm:flex-row sm:justify-between">
           <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-            Built for
+            Feito para
           </p>
           <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm">
             {AUDIENCES.map((audience) => (
@@ -65,16 +65,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* One row per surface: canvas, docs, team board. Copy lives in _data/landing.ts */}
+      {/* Uma linha por superfície: canvas, docs, quadro da equipe. Os textos ficam em _data/landing.ts */}
       <section
         id="product"
         className="border-t border-white/10 px-6 py-24 md:px-10"
       >
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-3xl text-center">
-            <SectionLabel>The workspace</SectionLabel>
+            <SectionLabel>O workspace</SectionLabel>
             <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
-              One agent, one workspace, your whole team
+              Um agente, um workspace, toda a sua equipe
             </h2>
           </div>
 
@@ -92,15 +92,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* Como funciona */}
       <section
         id="how-it-works"
         className="border-t border-white/10 px-6 py-24 md:px-10"
       >
         <div className="mx-auto max-w-5xl">
-          <SectionLabel>02 · The route</SectionLabel>
+          <SectionLabel>02 · O caminho</SectionLabel>
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            Watch it think, not just the result
+            Veja o agente pensar, não só o resultado
           </h2>
           <div className="mt-12 grid gap-10 md:grid-cols-3">
             {STEPS.map((step, i) => (
@@ -116,34 +116,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* Preços */}
       <section
         id="pricing"
         className="border-t border-white/10 px-6 py-24 md:px-10"
       >
         <div className="mx-auto mb-12 max-w-5xl text-center">
-          <SectionLabel>03 · Pricing</SectionLabel>
+          <SectionLabel>03 · Preços</SectionLabel>
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            Start free, upgrade when it clicks
+            Comece de graça, faça upgrade quando fizer sentido
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Upgrade just yourself, or your whole team, billed per member.
+            Faça upgrade só para você ou para toda a sua equipe, com cobrança por membro.
           </p>
         </div>
         <PricingPlans />
       </section>
 
-      {/* Closing CTA, back over the map so the page opens and closes on it */}
+      {/* CTA final, de volta sobre o mapa, para a página abrir e fechar com ele */}
       <section className="topo-bg border-t border-white/10 px-6 py-28 md:px-10">
         <MapAnnotations />
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
           <Brain className="size-10 text-primary/90" />
           <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            Give your workspace a collaborator
+            Dê ao seu workspace um colaborador
           </h2>
           <Button asChild size="lg" className="gap-2 text-base">
             <Link href="/sign-up">
-              Get started free <ArrowRight className="size-4" />
+              Comece de graça <ArrowRight className="size-4" />
             </Link>
           </Button>
         </div>
@@ -197,13 +197,13 @@ function SurfaceRow({
           ))}
         </ul>
       </div>
-      {/* Static mock UI for each surface */}
+      {/* Mock estático de interface para cada superfície */}
       <div className="flex-1">{visual}</div>
     </div>
   );
 }
 
-// Map-legend style eyebrow above a heading, matching the corner annotations.
+// Rótulo no estilo de legenda de mapa acima de um título, combinando com as anotações dos cantos.
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="mb-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-primary/80">
@@ -224,7 +224,7 @@ function Step({
 }) {
   return (
     <div>
-      {/* Waypoint on a dashed trail, so the steps read as one route */}
+      {/* Ponto de passagem em uma trilha tracejada, para os passos parecerem uma única rota */}
       <div className="flex items-center gap-3">
         <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-primary/60 font-mono text-[10px] text-primary">
           {number}

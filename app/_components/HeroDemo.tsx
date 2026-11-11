@@ -1,56 +1,57 @@
-// Animated product walkthrough for the hero, built only with markup + CSS
-// keyframes (no video file needed). It loops: the agent receives a prompt,
-// draws four tables and their relationships on the canvas, then writes the
-// spec in the doc. Decorative only, so it's hidden from screen readers.
+// Demonstração animada do produto no hero, feita apenas com marcação + CSS
+// keyframes (não precisa de arquivo de vídeo). Ela roda em loop: o agente
+// recebe um prompt, desenha quatro tabelas e seus relacionamentos no canvas
+// e depois escreve a especificação no doc. É apenas decorativa, por isso fica
+// oculta para leitores de tela.
 //
-// All visible text lives in the COPY object below, so it's easy to translate.
+// Todo o texto visível fica no objeto COPY abaixo, para facilitar a edição.
 
 const COPY = {
-  project: "booking-app",
-  agent: "Agent",
-  prompt: "Plan a booking app: database schema and spec",
-  reply: "On it. Schema on the canvas first, then the spec in the doc.",
-  drawing: "Drawing tables…",
-  writing: "Writing the spec…",
-  done: "Done · 4 tables, 1 doc",
-  input: "Ask the agent…",
-  docTitle: "Booking app · Spec",
-  entities: "Entities",
+  project: "app-reservas",
+  agent: "Agente",
+  prompt: "Planeje um app de reservas: schema do banco e especificação",
+  reply: "Entendido. Primeiro o schema no canvas, depois a especificação no doc.",
+  drawing: "Desenhando tabelas…",
+  writing: "Escrevendo a especificação…",
+  done: "Concluído · 4 tabelas, 1 doc",
+  input: "Pergunte ao agente…",
+  docTitle: "App de reservas · Especificação",
+  entities: "Entidades",
   entityLines: [
-    "users: people who book",
-    "rooms: spaces and prices",
-    "bookings: user + room + date",
-    "payments: one per booking",
+    "users: pessoas que reservam",
+    "rooms: espaços e preços",
+    "bookings: usuário + sala + data",
+    "payments: um por reserva",
   ],
-  relations: "Relationships",
-  relationLines: ["A user has many bookings", "A booking belongs to one room"],
+  relations: "Relacionamentos",
+  relationLines: ["Um usuário tem várias reservas", "Uma reserva pertence a uma sala"],
 };
 
-/* ───────────── Timeline (seconds) ───────────── */
+/* ───────────── Linha do tempo (em segundos) ───────────── */
 
-const T = 17; // loop length
+const T = 17; // duração do loop
 
 const pct = (s: number) => `${((s / T) * 100).toFixed(2)}%`;
 const FADE = "opacity:0";
 const RISE = "opacity:0;transform:translateY(0.6cqw)";
 
-// Hidden until `a`, visible until `b`, then reset for the next loop.
+// Oculto até `a`, visível até `b`, e depois reinicia para o próximo loop.
 function win(name: string, a: number, b = T - 1, from = RISE) {
   return `@keyframes ${name}{0%,${pct(a)}{${from}}${pct(a + 0.45)},${pct(b)}{opacity:1;transform:none}${pct(b + 0.4)},100%{${from}}}`;
 }
 
-// Reveals left to right (used for the doc's text lines).
+// Revela da esquerda para a direita (usado nas linhas de texto do doc).
 function reveal(name: string, a: number, dur = 0.6) {
   const hidden = "clip-path:inset(0 100% 0 0)";
   return `@keyframes ${name}{0%,${pct(a)}{${hidden}}${pct(a + dur)},${pct(T - 1)}{clip-path:inset(0 0 0 0)}${pct(T - 0.4)},100%{${hidden}}}`;
 }
 
-// Draws an SVG path (needs pathLength="1" and stroke-dasharray: 1).
+// Desenha um caminho SVG (precisa de pathLength="1" e stroke-dasharray: 1).
 function draw(name: string, a: number, dur = 0.7) {
   return `@keyframes ${name}{0%,${pct(a)}{stroke-dashoffset:1}${pct(a + dur)},${pct(T - 1)}{stroke-dashoffset:0}${pct(T - 0.4)},100%{stroke-dashoffset:1}}`;
 }
 
-// The agent's cursor: [time, left %, top %] waypoints over the canvas.
+// Cursor do agente: pontos de passagem [tempo, left %, top %] sobre o canvas.
 const CURSOR: [number, number, number][] = [
   [2.0, 50, 92],
   [2.7, 22, 11], // users
@@ -108,7 +109,7 @@ const an = (name: string, timing = "ease-out") => ({
   animation: `${name} ${T}s ${timing} infinite both`,
 });
 
-/* ───────────── Canvas pieces ───────────── */
+/* ───────────── Peças do canvas ───────────── */
 
 type Row = { n: string; tag?: "PK" | "FK" };
 
@@ -198,7 +199,7 @@ function Relation({ d, fade, dash }: { d: string; fade: string; dash: string }) 
   );
 }
 
-/* ───────────── Component ───────────── */
+/* ───────────── Componente ───────────── */
 
 export function HeroDemo() {
   const lineBase = "hd-anim flex items-center gap-[0.7cqw] whitespace-nowrap";
@@ -211,7 +212,7 @@ export function HeroDemo() {
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       <div className="flex size-full flex-col">
-        {/* Title bar */}
+        {/* Barra de título */}
         <div className="flex items-center justify-between border-b border-white/10 px-[1.6cqw] py-[0.9cqw]">
           <div className="flex items-center gap-[0.6cqw]">
             <span className="size-[0.8cqw] rounded-full bg-white/15" />
@@ -300,7 +301,7 @@ export function HeroDemo() {
               />
             </svg>
 
-            {/* Agent cursor */}
+            {/* Cursor do agente */}
             <div
               className="hd-motion absolute z-10"
               style={an("hd-cursor", "ease-in-out")}
@@ -317,7 +318,7 @@ export function HeroDemo() {
             </div>
           </div>
 
-          {/* Doc */}
+          {/* Documento */}
           <div className="w-[28%] space-y-[0.9cqw] border-r border-white/10 p-[1.8cqw]">
             <div
               className="hd-anim text-[1.5cqw] font-medium"
@@ -361,7 +362,7 @@ export function HeroDemo() {
             ))}
           </div>
 
-          {/* Agent chat */}
+          {/* Chat do agente */}
           <div className="flex w-[26%] flex-col gap-[1cqw] p-[1.4cqw]">
             <div className="font-mono text-[0.85cqw] uppercase tracking-widest text-muted-foreground">
               {COPY.agent}
@@ -381,7 +382,7 @@ export function HeroDemo() {
               {COPY.reply}
             </div>
 
-            {/* Status chips: one visible at a time */}
+            {/* Chips de status: apenas um visível por vez */}
             <div className="relative h-[3cqw]">
               <span
                 className="hd-anim hd-motion absolute left-0 top-0 flex items-center gap-[0.6cqw] rounded-full border border-primary/40 px-[1cqw] py-[0.4cqw] font-mono text-[0.9cqw] text-primary"
