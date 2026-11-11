@@ -121,24 +121,26 @@
   position: relative;
   isolation: isolate;
 
-  &::before {
+    &::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: radial-gradient(ellipse 40% 50% at 50% 42%,
+    /* Brilho azul: aumente os dois primeiros % (raio horizontal e vertical) para crescer a área */
+    background: radial-gradient(ellipse 75% 85% at 50% 42%,
         rgba(59, 130, 246, 1),
-        rgba(37, 99, 235, 0.55) 45%,
-        rgba(255, 255, 255, 0.45) 75%);
+        rgba(37, 99, 235, 0.55) 60%,
+        rgba(255, 255, 255, 0.45) 100%);
+    /* A máscara também limita onde as linhas aparecem: aumente-a junto para o brilho não ser cortado */
     mask-image:
       url("/textures/topo.svg"),
-      radial-gradient(ellipse 75% 70% at 50% 45%, black 30%, transparent 85%);
+      radial-gradient(ellipse 95% 90% at 50% 45%, black 40%, transparent 95%);
     mask-size: cover, 100% 100%;
     mask-position: center;
     mask-repeat: no-repeat;
     mask-composite: intersect;
-    opacity: 0.55;
+    opacity: 0.7;
   }
 }
 
