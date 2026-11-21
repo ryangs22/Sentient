@@ -1,8 +1,23 @@
 //Este arquivo é usado para configurar o middleware do Clerk no Next.js. Ele importa a função clerkMiddleware do pacote @clerk/nextjs/server e a exporta como padrão. Isso permite que o middleware do Clerk seja aplicado a todas as rotas da aplicação, garantindo que a autenticação e autorização sejam gerenciadas corretamente.
 
-import { clerkMiddleware } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
-export default clerkMiddleware();
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/workspace(.*)",
+])
+
+export default clerkMiddleware(async(auth, req)=>{
+  const { userId } = await auth();
+
+  if (!userId && isProtectedRoute(req)) {
+    const { redirectToSignIn } = await auth();
+    return redirectToSignIn();
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
